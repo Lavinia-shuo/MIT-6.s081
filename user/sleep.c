@@ -4,7 +4,7 @@
 
 int main(int argc, char *argv[])
 {
-    if (argc != 2)
+    if (argc != 2) //参数个数大于2
     {
         fprintf(2, "Usage: sleep <number>\n");
         exit(1);
