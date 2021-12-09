@@ -12,9 +12,10 @@ void child(int pp[])
         exit(0);
     }
     printf("prime %d\n", i);
+
     int num, cp[2];
-    pipe(cp); //创建当前进程的管道，它又变成了父进程
-    if (fork() == 0)
+    pipe(cp);        //创建当前进程的管道，往里面写数据，它又变成了父进程
+    if (fork() == 0) //子进程
     {
         close(pp[0]);
         close(cp[1]);
@@ -34,7 +35,6 @@ void child(int pp[])
         close(cp[1]);
         wait(0);
     }
-
     exit(0);
 }
 
@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
     int p[2];
     pipe(p); //创建一个管道p
 
-    if (fork() == 0)
+    if (fork() == 0) //子进程
     {
         child(p);
     }
@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
             write(p[1], &i, sizeof(i));
         }
         close(p[1]);
-        wait(0);
+        wait(0); //等待子进程退出
     }
     exit(0);
 }
